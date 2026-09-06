@@ -1,0 +1,6 @@
+*.log
+*.pid
+*.bak
+__pycache__/
+*.pyc
+.DS_Store

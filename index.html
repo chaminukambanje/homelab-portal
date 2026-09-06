@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homelab Hub & Services Launchpad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            },
+            dark: {
+              900: '#090d16',
+              850: '#0d1322',
+              800: '#111827',
+              750: '#162032',
+              700: '#1f293d',
+              600: '#2d3748',
+            }
+          },
+          boxShadow: {
+            'glow-indigo': '0 0 25px -5px rgba(99, 102, 241, 0.35)',
+            'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.35)',
+            'glow-amber': '0 0 25px -5px rgba(245, 158, 11, 0.35)',
+            'glow-teal': '0 0 25px -5px rgba(20, 184, 166, 0.35)',
+            'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #080c14;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(59, 130, 246, 0.1) 0px, transparent 60%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+    .glass-panel {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: rgba(19, 28, 46, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      background: rgba(26, 38, 62, 0.85);
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(99, 102, 241, 0.25);
+    }
+    .badge-pulse::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: currentColor;
+      margin-right: 6px;
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f293d;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #374151;
+    }
+  </style>
+</head>
+<body class="text-slate-200 font-sans antialiased selection:bg-indigo-500 selection:text-white pb-20">
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 bg-slate-900/95 text-white px-5 py-3.5 rounded-xl border border-indigo-500/40 shadow-2xl backdrop-blur-xl">
+    <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+    <span id="toast-msg" class="text-sm font-medium">Copied to clipboard!</span>
+  </div>
+
+  <!-- Top Navigation / Header -->
+  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo & Branding -->
+        <div class="flex items-center gap-4">
+          <div class="h-12 w-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-glow-indigo text-white text-xl font-black">
+            <i class="fa-solid fa-server"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2.5">
+              <h1 class="text-xl font-bold tracking-tight text-white">Homelab Hub</h1>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 badge-pulse">
+                Online
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 font-medium">Unified Launchpad & Docker Services Portal</p>
+          </div>
+        </div>
+
+        <!-- Quick Environment / Host Indicators -->
+        <div class="hidden md:flex items-center gap-3">
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-xs">
+            <span class="text-slate-400"><i class="fa-solid fa-network-wired text-indigo-400 mr-1.5"></i>Host IP:</span>
+            <code class="font-mono text-slate-200 font-semibold cursor-pointer hover:text-indigo-400" onclick="copyText('192.168.0.218', 'Docker Host IP')">192.168.0.218</code>
+          </div>
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-xs">
+            <span class="text-slate-400"><i class="fa-solid fa-globe text-cyan-400 mr-1.5"></i>DDNS:</span>
+            <code class="font-mono text-slate-200 font-semibold cursor-pointer hover:text-cyan-400" onclick="copyText('docker.npcsolutions.co.uk', 'DDNS Domain')">docker.npcsolutions.co.uk</code>
+          </div>
+          <div id="live-clock" class="px-3 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300">
+            --:--:--
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
+
+    <!-- Hero / Controls Bar -->
+    <div class="glass-panel rounded-2xl p-6 shadow-glass">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        
+        <!-- Search Input -->
+        <div class="relative flex-1 max-w-xl">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Search guacamole, rdp, remote, jupyter, wazuh, 8084, 8086..." 
+            class="w-full pl-11 pr-10 py-3 bg-slate-900/90 border border-slate-700/60 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            oninput="handleSearch(this.value)"
+          >
+          <button id="clear-search" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </button>
+        </div>
+
+        <!-- URL Routing Mode Selector -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-route text-indigo-400"></i> Mode:
+          </span>
+          <div class="inline-flex p-1 rounded-xl bg-slate-950/80 border border-slate-800 gap-1">
+            <button 
+              id="mode-lan" 
+              onclick="setRouteMode('lan')" 
+              class="route-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 bg-indigo-600 text-white shadow-sm"
+              title="Route using internal 192.168.0.x LAN IPs"
+            >
+              <i class="fa-solid fa-house-laptop"></i> Local LAN
+            </button>
+            <button 
+              id="mode-ddns" 
+              onclick="setRouteMode('ddns')" 
+              class="route-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5 hover:bg-slate-800/60"
+              title="Route using docker.npcsolutions.co.uk DDNS"
+            >
+              <i class="fa-solid fa-satellite-dish"></i> DDNS Domain
+            </button>
+            <button 
+              id="mode-public" 
+              onclick="setRouteMode('public')" 
+              class="route-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition-all flex items-center gap-1.5 hover:bg-slate-800/60"
+              title="Route using public tunnels (localtunnel / Cloudflare)"
+            >
+              <i class="fa-solid fa-bolt text-amber-400"></i> Public Tunnels
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="mt-6 pt-5 border-t border-slate-800/80 flex items-center gap-2 overflow-x-auto pb-1" id="category-tabs">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Guacamole / Remote Desktop Spotlight Banner -->
+    <div class="rounded-2xl p-5 bg-gradient-to-r from-teal-950/40 via-slate-900/80 to-indigo-950/40 border border-teal-500/30 shadow-glass flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-teal-600 to-emerald-500 flex items-center justify-center text-white text-xl shadow-glow-teal flex-shrink-0">
+          <i class="fa-solid fa-desktop"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-sm font-bold text-white uppercase tracking-wider">Apache Guacamole Web RDP Gateways</h2>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-500/20 text-teal-300 border border-teal-500/30">Browser HTML5 RDP</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-0.5">
+            Clientless browser desktop access to your physical & virtual machines. 
+            Default Login: <code class="font-mono text-teal-300 font-bold bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800 cursor-pointer" onclick="copyText('mbanjec / ig2tq:up8#', 'Credentials')">mbanjec / ig2tq:up8#</code> or <code class="font-mono text-slate-300 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800 cursor-pointer" onclick="copyText('admin / admin', 'Admin Credentials')">admin / admin</code>
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-shrink-0 w-full md:w-auto">
+        <a id="banner-ubuntu-link" href="https://guacamole.npcsolutions.co.uk" target="_blank" rel="noopener noreferrer" class="flex-1 md:flex-none px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+          <i class="fa-brands fa-ubuntu text-sm"></i> Ubuntu RDP (:8084)
+        </a>
+        <a id="banner-unicaf-link" href="https://unicaf.npcsolutions.co.uk" target="_blank" rel="noopener noreferrer" class="flex-1 md:flex-none px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+          <i class="fa-brands fa-windows text-sm"></i> UNICAF RDP (:8086)
+        </a>
+      </div>
+    </div>
+
+    <!-- Active Mode Indicator Banner -->
+    <div id="mode-banner" class="rounded-xl px-4 py-2.5 bg-indigo-500/10 border border-indigo-500/20 text-xs text-indigo-300 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-circle-info text-indigo-400"></i>
+        <span>Currently routing links via: <strong id="current-mode-label" class="text-white font-semibold">Local LAN IPs (192.168.0.x)</strong></span>
+      </div>
+      <span class="text-[11px] text-slate-400 hidden sm:inline">Click any card to launch immediately in new tab</span>
+    </div>
+
+    <!-- Results Stats -->
+    <div class="flex items-center justify-between text-xs text-slate-400 px-1">
+      <div>Showing <span id="visible-count" class="font-bold text-slate-200">0</span> services</div>
+      <div class="flex items-center gap-4">
+        <span><i class="fa-solid fa-desktop text-teal-400 mr-1"></i> Guacamole Gateways (8084, 8086)</span>
+        <span><i class="fa-solid fa-box text-indigo-400 mr-1"></i> 24 Containers</span>
+        <span><i class="fa-solid fa-shield text-cyan-400 mr-1"></i> Wazuh Active</span>
+      </div>
+    </div>
+
+    <!-- Services Grid Container -->
+    <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden glass-panel rounded-2xl p-12 text-center max-w-md mx-auto">
+      <div class="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center mx-auto text-slate-400 text-2xl mb-4">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <h3 class="text-lg font-bold text-white mb-1">No matching services</h3>
+      <p class="text-sm text-slate-400 mb-6">No services matched your current query or category filter.</p>
+      <button onclick="clearSearch()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg transition-colors">
+        Clear Filter
+      </button>
+    </div>
+
+    <!-- System Topology / Quick Reference Footer Section -->
+    <div class="glass-panel rounded-2xl p-6 mt-12 border border-slate-800">
+      <h2 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-sitemap text-indigo-400"></i> Homelab Architecture & Nodes Reference
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
+        <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+          <div class="text-slate-400 font-sans font-semibold mb-1 flex items-center justify-between">
+            <span>ESXi Docker Host</span>
+            <span class="text-emerald-400 font-mono text-[10px]">Active</span>
+          </div>
+          <div class="text-white font-bold text-sm">192.168.0.218</div>
+          <div class="text-slate-400 text-[11px] mt-1 font-sans">Guacamole, JASMIN, Wazuh, Monitoring</div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+          <div class="text-slate-400 font-sans font-semibold mb-1 flex items-center justify-between">
+            <span>Ubuntu Workstation</span>
+            <span class="text-teal-400 font-mono text-[10px]">RDP: 3389</span>
+          </div>
+          <div class="text-white font-bold text-sm">192.168.0.104</div>
+          <div class="text-slate-400 text-[11px] mt-1 font-sans">Target PC for Ubuntu Guacamole Gateway</div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+          <div class="text-slate-400 font-sans font-semibold mb-1 flex items-center justify-between">
+            <span>UNICAF Windows Server</span>
+            <span class="text-indigo-400 font-mono text-[10px]">RDP: 3389</span>
+          </div>
+          <div class="text-white font-bold text-sm">192.168.0.109</div>
+          <div class="text-slate-400 text-[11px] mt-1 font-sans">Windows Server 2025 Active Directory</div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+          <div class="text-slate-400 font-sans font-semibold mb-1 flex items-center justify-between">
+            <span>ESXi Hypervisor 8.0</span>
+            <span class="text-purple-400 font-mono text-[10px]">Baremetal</span>
+          </div>
+          <div class="text-white font-bold text-sm">192.168.0.200</div>
+          <div class="text-slate-400 text-[11px] mt-1 font-sans">Host Client & Hardware Virtualization</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Script Data & Controller Logic -->
+  <script>
+    const services = [
+      {
+        id: "network-traffic-telemetry",
+        name: "Subnet Network Traffic Telemetry",
+        category: "Monitoring",
+        badge: "Live Telemetry",
+        badgeColor: "indigo",
+        icon: "fa-solid fa-network-wired",
+        iconBg: "from-indigo-600 via-blue-600 to-cyan-500",
+        desc: "Real-time subnet packet capture, DNS hostname resolution, flow categorization, and per-device traffic telemetry via ESXi SPAN & TrueNAS Ingest.",
+        urls: {
+          lan: "http://192.168.0.218:8500",
+          ddns: "http://docker.npcsolutions.co.uk:8500",
+          public: "https://traffic.npcsolutions.co.uk"
+        },
+        port: "8500 -> 8500",
+        container: "network-traffic-dashboard",
+        auth: "Direct Access",
+        tags: ["traffic", "wireshark", "pcap", "monitoring", "telemetry", "esxi", "truenas", "docker", "dns", "8500"]
+      },
+
+      // 1. Remote Desktop & Guacamole
+      {
+        id: "guacamole-ubuntu",
+        name: "Ubuntu Workstation (Guacamole Web RDP)",
+        category: "Guacamole & Remote Desktop",
+        badge: "Guacamole Gateway",
+        badgeColor: "teal",
+        icon: "fa-solid fa-desktop",
+        iconBg: "from-teal-600 via-emerald-600 to-cyan-500",
+        desc: "Interactive HTML5 clientless browser remote desktop session into Ubuntu PC (192.168.0.104).",
+        urls: {
+          lan: "http://192.168.0.218:8084",
+          ddns: "http://docker.npcsolutions.co.uk:8084",
+          public: "https://guacamole.npcsolutions.co.uk"
+        },
+        port: "8084 -> 8080",
+        container: "ubuntu-rdp-web (oznu/guacamole)",
+        auth: "mbanjec / ig2tq:up8# (or admin/admin)",
+        tags: ["guacamole", "rdp", "remote desktop", "ubuntu", "workstation", "104", "8084", "web rdp", "html5"]
+      },
+      {
+        id: "guacamole-unicaf",
+        name: "UNICAF Windows Server (Guacamole Web RDP)",
+        category: "Guacamole & Remote Desktop",
+        badge: "Guacamole Gateway",
+        badgeColor: "indigo",
+        icon: "fa-brands fa-windows",
+        iconBg: "from-indigo-600 via-blue-600 to-violet-500",
+        desc: "Interactive HTML5 browser remote desktop session for UNICAF Windows Server 2025 (192.168.0.109).",
+        urls: {
+          lan: "http://192.168.0.218:8086",
+          ddns: "http://docker.npcsolutions.co.uk:8086",
+          public: "https://unicaf.npcsolutions.co.uk"
+        },
+        port: "8086 -> 8080",
+        container: "unicaf-rdp-web (oznu/guacamole)",
+        auth: "mbanjec / ig2tq:up8# (or admin/admin)",
+        tags: ["guacamole", "rdp", "remote desktop", "windows", "server", "109", "8086", "web rdp", "html5", "unicaf"]
+      },
+      {
+        id: "direct-rdp-ubuntu",
+        name: "Ubuntu PC (Direct RDP Port 3389)",
+        category: "Guacamole & Remote Desktop",
+        badge: "Native RDP Client",
+        badgeColor: "teal",
+        icon: "fa-solid fa-network-wired",
+        iconBg: "from-teal-700 to-slate-700",
+        desc: "Direct native RDP client connection string for Microsoft Remote Desktop or Remmina.",
+        urls: {
+          lan: "192.168.0.104:3389",
+          ddns: "192.168.0.104:3389",
+          public: "192.168.0.104:3389"
+        },
+        port: "3389",
+        container: "Physical Host 192.168.0.104",
+        auth: "mbanjec / ig2tq:up8#",
+        isLink: false,
+        tags: ["rdp", "ubuntu", "remmina", "native", "3389", "104"]
+      },
+      {
+        id: "direct-rdp-unicaf",
+        name: "UNICAF Windows (Direct RDP Port 3389)",
+        category: "Guacamole & Remote Desktop",
+        badge: "Native RDP Client",
+        badgeColor: "blue",
+        icon: "fa-brands fa-windows",
+        iconBg: "from-blue-700 to-slate-700",
+        desc: "Direct native RDP client connection string for Windows Server 2025 (Domain: npcsolutions.co.za).",
+        urls: {
+          lan: "192.168.0.109:3389",
+          ddns: "192.168.0.109:3389",
+          public: "192.168.0.109:3389"
+        },
+        port: "3389",
+        container: "VM Host 192.168.0.109",
+        auth: "Administrator / ig2tq:up8#",
+        isLink: false,
+        tags: ["rdp", "windows", "native", "mstsc", "3389", "109"]
+      },
+      {
+        id: "tiktok-browser",
+        name: "Sandboxed Web Browser (Chromium)",
+        category: "Guacamole & Remote Desktop",
+        badge: "LinuxServer Web GUI",
+        badgeColor: "rose",
+        icon: "fa-brands fa-tiktok",
+        iconBg: "from-rose-600 to-red-500",
+        desc: "Sandboxed, isolated web browser session running Chromium inside Docker.",
+        urls: {
+          lan: "http://192.168.0.218:3000",
+          ddns: "http://docker.npcsolutions.co.uk:3000",
+          public: "https://browser.npcsolutions.co.uk"
+        },
+        port: "3000 / 3001 (HTTPS)",
+        container: "tiktok-browser",
+        auth: "No Auth (Sandboxed)",
+        tags: ["browser", "media", "sandbox", "chromium", "tiktok", "guacamole", "gui"]
+      },
+
+      // 2. Enterprise ERP
+      {
+        id: "nexus-erp",
+        name: "NexusERP 365 (Dynamics 365 BC & F&O)",
+        category: "Enterprise ERP",
+        badge: "Unrestricted Edition",
+        badgeColor: "emerald",
+        icon: "fa-solid fa-boxes-stacked",
+        iconBg: "from-emerald-600 to-teal-500",
+        desc: "Full open enterprise ERP mirroring Microsoft Dynamics 365 Business Central & F&O with multi-company, WMS, MRP, and Copilot.",
+        urls: {
+          lan: "http://192.168.0.218:8088",
+          ddns: "http://docker.npcsolutions.co.uk:8088",
+          public: "https://nexus.npcsolutions.co.uk"
+        },
+        port: "8088 & 3080",
+        container: "nexus-erp",
+        auth: "Open Access (No Seat Limits)",
+        tags: ["erp", "business-central", "finance-operations", "copilot", "mrp", "wms"]
+      },
+      {
+        id: "bc-proxy",
+        name: "Dynamics 365 Business Central",
+        category: "Enterprise ERP",
+        badge: "D365 BC Host",
+        badgeColor: "blue",
+        icon: "fa-solid fa-building-columns",
+        iconBg: "from-blue-600 to-indigo-500",
+        desc: "Local Nginx reverse proxy routing to Business Central ERP host.",
+        urls: {
+          lan: "http://192.168.0.218:8097",
+          ddns: "http://docker.npcsolutions.co.uk:8097",
+          public: "https://bc.npcsolutions.co.uk"
+        },
+        port: "8097 -> 192.168.0.39:8080",
+        container: "bc-nginx-proxy",
+        auth: "D365 Credentials",
+        tags: ["erp", "business-central", "cloudflare", "proxy"]
+      },
+
+      // 3. Public Tunnels
+      {
+        id: "nexus-erp-tunnel",
+        name: "NexusERP 365 (Cloudflare Public Tunnel)",
+        category: "Public Tunnels",
+        badge: "Cloudflare Tunnel",
+        badgeColor: "emerald",
+        icon: "fa-solid fa-cloud",
+        iconBg: "from-teal-600 via-emerald-600 to-cyan-500",
+        desc: "Public Cloudflare Tunnel routing to NexusERP 365 (https://nexus.npcsolutions.co.uk).",
+        urls: {
+          lan: "http://192.168.0.218:8088",
+          ddns: "http://docker.npcsolutions.co.uk:8088",
+          public: "https://nexus.npcsolutions.co.uk"
+        },
+        port: "8088 (HTTPS: 443)",
+        container: "cloudflared / nexus-erp",
+        auth: "Open Access (No Seat Limits)",
+        tags: ["erp", "public", "cloudflare", "tunnel", "nexus", "https"]
+      },
+      {
+        id: "bc-tunnel",
+        name: "Business Central (Cloudflare Tunnel)",
+        category: "Public Tunnels",
+        badge: "Cloudflare Tunnel",
+        badgeColor: "blue",
+        icon: "fa-solid fa-building-columns",
+        iconBg: "from-blue-600 to-indigo-500",
+        desc: "Public Cloudflare Tunnel routing to Dynamics 365 Business Central (https://bc.npcsolutions.co.uk).",
+        urls: {
+          lan: "http://192.168.0.218:8097",
+          ddns: "http://docker.npcsolutions.co.uk:8097",
+          public: "https://bc.npcsolutions.co.uk"
+        },
+        port: "8097",
+        container: "cloudflared / bc-proxy",
+        auth: "D365 Credentials",
+        tags: ["erp", "business-central", "cloudflare", "public"]
+      },
+      {
+        id: "fastcash-tunnel",
+        name: "Fast Cash UK (Cloudflare Tunnel)",
+        category: "Public Tunnels",
+        badge: "Cloudflare Tunnel",
+        badgeColor: "emerald",
+        icon: "fa-solid fa-sterling-sign",
+        iconBg: "from-emerald-600 to-teal-500",
+        desc: "Public Cloudflare Tunnel routing to Fast Cash UK web application (https://fastcash.npcsolutions.co.uk).",
+        urls: {
+          lan: "http://192.168.0.218:8098",
+          ddns: "http://docker.npcsolutions.co.uk:8098",
+          public: "https://fastcash.npcsolutions.co.uk"
+        },
+        port: "8098",
+        container: "cloudflared / fast-cash-uk-app",
+        auth: "Public Access",
+        tags: ["finance", "cloudflare", "public", "fastcash"]
+      },
+      {
+        id: "booklore-tunnel",
+        name: "BookLore (Cloudflare Tunnel)",
+        category: "Public Tunnels",
+        badge: "Cloudflare Tunnel",
+        badgeColor: "amber",
+        icon: "fa-solid fa-book-bookmark",
+        iconBg: "from-amber-600 to-orange-500",
+        desc: "Public Cloudflare Tunnel routing to BookLore Digital Library on Ubuntu VM.",
+        urls: {
+          lan: "http://192.168.0.235:6060",
+          ddns: "http://192.168.0.235:6060",
+          public: "https://booklore.npcsolutions.co.uk"
+        },
+        port: "6060",
+        container: "booklore-tunnel (VM 108)",
+        auth: "User Auth Required",
+        tags: ["books", "library", "cloudflare", "public"]
+      },
+      {
+        id: "guacamole-tunnel",
+        name: "Ubuntu Web RDP (Cloudflare Tunnel)",
+        category: "Public Tunnels",
+        badge: "Cloudflare Tunnel",
+        badgeColor: "teal",
+        icon: "fa-solid fa-desktop",
+        iconBg: "from-teal-600 via-emerald-600 to-cyan-500",
+        desc: "Public Cloudflare Tunnel routing to Ubuntu Guacamole RDP Gateway (https://guacamole.npcsolutions.co.uk).",
+        urls: {
+          lan: "http://192.168.0.218:8084",
+          ddns: "http://docker.npcsolutions.co.uk:8084",
+          public: "https://guacamole.npcsolutions.co.uk"
+        },
+        port: "8084",
+        container: "cloudflared / ubuntu-rdp-web",
+        auth: "mbanjec / ig2tq:up8#",
+        tags: ["guacamole", "rdp", "cloudflare", "public"]
+      },
+      {
+        id: "unicaf-tunnel",
+        name: "UNICAF Windows RDP (Cloudflare Tunnel)",
+        category: "Public Tunnels",
+        badge: "Cloudflare Tunnel",
+        badgeColor: "indigo",
+        icon: "fa-brands fa-windows",
+        iconBg: "from-indigo-600 via-blue-600 to-violet-500",
+        desc: "Public Cloudflare Tunnel routing to UNICAF Windows Guacamole Gateway (https://unicaf.npcsolutions.co.uk).",
+        urls: {
+          lan: "http://192.168.0.218:8086",
+          ddns: "http://docker.npcsolutions.co.uk:8086",
+          public: "https://unicaf.npcsolutions.co.uk"
+        },
+        port: "8086",
+        container: "cloudflared / unicaf-rdp-web",
+        auth: "mbanjec / ig2tq:up8#",
+        tags: ["guacamole", "rdp", "windows", "cloudflare", "public"]
+      },
+      {
+        id: "traffic-tunnel",
+        name: "Network Telemetry (Cloudflare Tunnel)",
+        category: "Public Tunnels",
+        badge: "Cloudflare Tunnel",
+        badgeColor: "indigo",
+        icon: "fa-solid fa-network-wired",
+        iconBg: "from-indigo-600 via-blue-600 to-cyan-500",
+        desc: "Public Cloudflare Tunnel routing to Subnet Traffic Telemetry Dashboard (https://traffic.npcsolutions.co.uk).",
+        urls: {
+          lan: "http://192.168.0.218:8500",
+          ddns: "http://docker.npcsolutions.co.uk:8500",
+          public: "https://traffic.npcsolutions.co.uk"
+        },
+        port: "8500",
+        container: "cloudflared / network-traffic-dashboard",
+        auth: "Direct Access",
+        tags: ["traffic", "monitoring", "cloudflare", "public"]
+      },
+
+      // 4. AI & Compute (JASMIN Stack)
+      {
+        id: "jasmin-portal",
+        name: "JASMIN Cluster Portal",
+        category: "AI & Compute",
+        badge: "HPC Slurm Portal",
+        badgeColor: "indigo",
+        icon: "fa-solid fa-server",
+        iconBg: "from-indigo-600 to-blue-500",
+        desc: "Scientific high-performance computing portal integrated with SLURM compute nodes.",
+        urls: {
+          lan: "http://192.168.0.218:8880",
+          ddns: "http://docker.npcsolutions.co.uk:8880",
+          public: "https://jasmin.npcsolutions.co.uk"
+        },
+        port: "8880",
+        container: "jasmin-portal",
+        auth: "mbanjec / ig2tq:up8#",
+        tags: ["ai", "hpc", "cluster", "jasmin", "slurm"]
+      },
+      {
+        id: "jasmin-notebooks",
+        name: "JASMIN JupyterLab Notebooks",
+        category: "AI & Compute",
+        badge: "JupyterLab IDE",
+        badgeColor: "orange",
+        icon: "fa-solid fa-code",
+        iconBg: "from-orange-600 to-amber-500",
+        desc: "Interactive data science, Python kernels, and compute notebooks workspace.",
+        urls: {
+          lan: "http://192.168.0.218:8888",
+          ddns: "http://docker.npcsolutions.co.uk:8888",
+          public: "https://notebooks.npcsolutions.co.uk"
+        },
+        port: "8888",
+        container: "jasmin-notebooks",
+        auth: "Token / Direct",
+        tags: ["python", "jupyter", "ai", "datascience", "notebook"]
+      },
+      {
+        id: "jasmin-api",
+        name: "JASMIN Cluster REST API",
+        category: "AI & Compute",
+        badge: "FastAPI Docs",
+        badgeColor: "teal",
+        icon: "fa-solid fa-network-wired",
+        iconBg: "from-teal-600 to-cyan-500",
+        desc: "FastAPI orchestrator backend and REST endpoints for cluster task submissions.",
+        urls: {
+          lan: "http://192.168.0.218:8881/docs",
+          ddns: "http://docker.npcsolutions.co.uk:8881/docs",
+          public: "https://jasmin-api.npcsolutions.co.uk/docs"
+        },
+        port: "8881",
+        container: "jasmin-cluster-api",
+        auth: "FastAPI /docs",
+        tags: ["api", "rest", "fastapi", "docs", "cluster"]
+      },
+      {
+        id: "jasmin-dufs",
+        name: "JASMIN File Transfer (Dufs)",
+        category: "AI & Compute",
+        badge: "Dufs Transfer",
+        badgeColor: "cyan",
+        icon: "fa-solid fa-folder-tree",
+        iconBg: "from-cyan-600 to-blue-500",
+        desc: "High-speed static file server, data transfer, and dataset synchronization interface.",
+        urls: {
+          lan: "http://192.168.0.218:8882",
+          ddns: "http://docker.npcsolutions.co.uk:8882",
+          public: "https://dufs.npcsolutions.co.uk"
+        },
+        port: "8882 -> 5000",
+        container: "jasmin-xfer",
+        auth: "Direct Download / Upload",
+        tags: ["files", "storage", "dufs", "datasets"]
+      },
+
+      // 5. Web Applications
+      {
+        id: "news-dashboard",
+        name: "News & Trends Dashboard",
+        category: "Web Applications",
+        badge: "FastAPI / Uvicorn",
+        badgeColor: "pink",
+        icon: "fa-solid fa-newspaper",
+        iconBg: "from-pink-600 to-rose-500",
+        desc: "Automated real-time news aggregator, sentiment analyzer, and trends visualizer.",
+        urls: {
+          lan: "http://192.168.0.218:8090",
+          ddns: "http://docker.npcsolutions.co.uk:8090",
+          public: "https://news.npcsolutions.co.uk"
+        },
+        port: "8090",
+        container: "news-dashboard",
+        auth: "Open Access",
+        tags: ["news", "trends", "dashboard", "aggregator"]
+      },
+      {
+        id: "fastcash-app",
+        name: "Fast Cash UK Web App",
+        category: "Web Applications",
+        badge: "Gunicorn / Python",
+        badgeColor: "emerald",
+        icon: "fa-solid fa-money-bill-wave",
+        iconBg: "from-emerald-600 to-green-500",
+        desc: "Production application engine for Fast Cash UK loan calculation & management.",
+        urls: {
+          lan: "http://192.168.0.218:8098",
+          ddns: "http://docker.npcsolutions.co.uk:8098",
+          public: "https://fastcash.npcsolutions.co.uk"
+        },
+        port: "8098",
+        container: "fast-cash-uk-app",
+        auth: "Web Authentication",
+        tags: ["finance", "loan", "production", "fastcash"]
+      },
+      {
+        id: "agro-farm",
+        name: "50m × 50m Agro Project",
+        category: "Web Applications",
+        badge: "Python Web",
+        badgeColor: "lime",
+        icon: "fa-solid fa-wheat-awn",
+        iconBg: "from-lime-600 to-emerald-500",
+        desc: "Agricultural management system, feasibility model, and business planner.",
+        urls: {
+          lan: "http://192.168.0.218:8087",
+          ddns: "http://docker.npcsolutions.co.uk:8087",
+          public: "http://docker.npcsolutions.co.uk:8087"
+        },
+        port: "8087",
+        container: "agro-farm-project",
+        auth: "Local Web Access",
+        tags: ["agriculture", "business", "planning", "agro"]
+      },
+      {
+        id: "postgres-db",
+        name: "PostgreSQL Database Server",
+        category: "Web Applications",
+        badge: "Postgres 15 Alpine",
+        badgeColor: "sky",
+        icon: "fa-solid fa-database",
+        iconBg: "from-sky-600 to-blue-500",
+        desc: "Relational database server powering homelab applications and metrics.",
+        urls: {
+          lan: "192.168.0.218:5432",
+          ddns: "docker.npcsolutions.co.uk:5432",
+          public: "docker.npcsolutions.co.uk:5432"
+        },
+        port: "5432",
+        container: "test-postgres",
+        auth: "postgres / password",
+        isLink: false,
+        tags: ["db", "sql", "postgres", "database"]
+      },
+
+      // 6. Monitoring & Observability
+      {
+        id: "grafana",
+        name: "Grafana Monitoring Dashboard",
+        category: "Monitoring",
+        badge: "Grafana OSS",
+        badgeColor: "orange",
+        icon: "fa-solid fa-chart-line",
+        iconBg: "from-orange-600 to-amber-500",
+        desc: "Unified analytics and visualization dashboards for homelab metrics & alerts.",
+        urls: {
+          lan: "http://192.168.0.218:3002",
+          ddns: "http://docker.npcsolutions.co.uk:3002",
+          public: "https://grafana.npcsolutions.co.uk"
+        },
+        port: "3002 -> 3000",
+        container: "grafana",
+        auth: "admin / admin",
+        tags: ["metrics", "charts", "alerts", "grafana", "observability"]
+      },
+      {
+        id: "prometheus",
+        name: "Prometheus Metrics TSDB",
+        category: "Monitoring",
+        badge: "Prometheus TSDB",
+        badgeColor: "red",
+        icon: "fa-solid fa-fire",
+        iconBg: "from-red-600 to-orange-500",
+        desc: "Core time-series database scraping node exporters, cAdvisor, and ESXi.",
+        urls: {
+          lan: "http://192.168.0.218:9090",
+          ddns: "http://docker.npcsolutions.co.uk:9090",
+          public: "https://prometheus.npcsolutions.co.uk"
+        },
+        port: "9090",
+        container: "prometheus",
+        auth: "Open Access",
+        tags: ["tsdb", "prometheus", "scraper", "metrics"]
+      },
+      {
+        id: "cadvisor",
+        name: "cAdvisor Container Analyzer",
+        category: "Monitoring",
+        badge: "Google cAdvisor",
+        badgeColor: "blue",
+        icon: "fa-brands fa-docker",
+        iconBg: "from-blue-600 to-indigo-500",
+        desc: "Real-time resource usage, CPU, RAM, and network metrics for all Docker containers.",
+        urls: {
+          lan: "http://192.168.0.218:8085",
+          ddns: "http://docker.npcsolutions.co.uk:8085",
+          public: "https://cadvisor.npcsolutions.co.uk"
+        },
+        port: "8085 -> 8080",
+        container: "cadvisor",
+        auth: "Open Access",
+        tags: ["docker", "containers", "stats", "cadvisor"]
+      },
+      {
+        id: "esxi-exporter",
+        name: "ESXi Metrics Exporter",
+        category: "Monitoring",
+        badge: "Prometheus Exporter",
+        badgeColor: "violet",
+        icon: "fa-solid fa-gauge-high",
+        iconBg: "from-violet-600 to-purple-500",
+        desc: "Scrapes VMware ESXi hypervisor CPU, memory, datastore, and VM telemetry.",
+        urls: {
+          lan: "http://192.168.0.218:9272/metrics",
+          ddns: "http://docker.npcsolutions.co.uk:9272/metrics",
+          public: "http://docker.npcsolutions.co.uk:9272/metrics"
+        },
+        port: "9272",
+        container: "esxi-exporter",
+        auth: "Prometheus Metric Endpoint",
+        tags: ["vmware", "esxi", "metrics", "exporter"]
+      },
+      {
+        id: "node-exporter",
+        name: "Linux Node Exporter",
+        category: "Monitoring",
+        badge: "Node Exporter",
+        badgeColor: "amber",
+        icon: "fa-solid fa-microchip",
+        iconBg: "from-amber-600 to-yellow-500",
+        desc: "Hardware and OS metrics exporter for Docker host Linux kernel and disks.",
+        urls: {
+          lan: "http://192.168.0.218:9100/metrics",
+          ddns: "http://docker.npcsolutions.co.uk:9100/metrics",
+          public: "http://docker.npcsolutions.co.uk:9100/metrics"
+        },
+        port: "9100",
+        container: "node-exporter",
+        auth: "Metrics Endpoint",
+        tags: ["linux", "hardware", "cpu", "ram", "metrics"]
+      },
+
+      // 7. Security & Infrastructure Access
+      {
+        id: "wazuh-dashboard",
+        name: "Wazuh SIEM Security Platform",
+        category: "Security & Access",
+        badge: "Enterprise SIEM",
+        badgeColor: "cyan",
+        icon: "fa-solid fa-shield-halved",
+        iconBg: "from-cyan-600 to-teal-500",
+        desc: "Unified threat detection, compliance monitoring, and security incident response.",
+        urls: {
+          lan: "https://192.168.0.218:8443",
+          ddns: "https://docker.npcsolutions.co.uk:8443",
+          public: "https://wazuh.npcsolutions.co.uk"
+        },
+        port: "8443 -> 5601",
+        container: "single-node-wazuh.dashboard",
+        auth: "admin / SecretPassword",
+        tags: ["security", "siem", "wazuh", "soc", "indexer"]
+      },
+      {
+        id: "wireguard-admin",
+        name: "WireGuard Easy VPN Admin",
+        category: "Security & Access",
+        badge: "WG-Easy VPN",
+        badgeColor: "emerald",
+        icon: "fa-solid fa-key",
+        iconBg: "from-emerald-600 to-teal-500",
+        desc: "Client configuration, QR codes, and connection manager for WireGuard VPN tunnel.",
+        urls: {
+          lan: "http://192.168.0.218:51821",
+          ddns: "http://docker.npcsolutions.co.uk:51821",
+          public: "https://vpn.npcsolutions.co.uk"
+        },
+        port: "51821 (UDP 51820)",
+        container: "wg-easy",
+        auth: "Admin Password Protected",
+        tags: ["vpn", "wireguard", "remote", "tunnel", "security"]
+      },
+
+      // 8. Hypervisors & Core Infrastructure
+      {
+        id: "esxi-host",
+        name: "VMware ESXi Host Client",
+        category: "Infrastructure",
+        badge: "Hypervisor 8.0",
+        badgeColor: "purple",
+        icon: "fa-solid fa-server",
+        iconBg: "from-purple-600 to-indigo-500",
+        desc: "Bare-metal hypervisor host management, VM provisioning, and hardware monitoring.",
+        urls: {
+          lan: "https://192.168.0.200",
+          ddns: "https://192.168.0.200",
+          public: "https://192.168.0.200"
+        },
+        port: "443 (HTTPS)",
+        container: "Baremetal ESXi Host",
+        auth: "root / ig2tq:up8#",
+        tags: ["esxi", "vmware", "hypervisor", "hardware", "infrastructure"]
+      },
+      {
+        id: "booklore-local",
+        name: "BookLore Digital Library (VM)",
+        category: "Infrastructure",
+        badge: "Ubuntu VM 108",
+        badgeColor: "amber",
+        icon: "fa-solid fa-book",
+        iconBg: "from-amber-600 to-orange-500",
+        desc: "BookLore instance running directly on Ubuntu Test VM (192.168.0.235).",
+        urls: {
+          lan: "http://192.168.0.235:6060",
+          ddns: "http://192.168.0.235:6060",
+          public: "https://booklore.npcsolutions.co.uk"
+        },
+        port: "6060",
+        container: "booklore (192.168.0.235)",
+        auth: "User Auth",
+        tags: ["books", "library", "vm", "reader"]
+      },
+      {
+        id: "vcenter-server",
+        name: "VMware vCenter 8 Appliance",
+        category: "Infrastructure",
+        badge: "vSphere Center",
+        badgeColor: "blue",
+        icon: "fa-solid fa-cubes",
+        iconBg: "from-blue-600 to-indigo-500",
+        desc: "Centralized cluster management, vMotion, and high-availability controller.",
+        urls: {
+          lan: "https://192.168.0.146",
+          ddns: "https://192.168.0.146",
+          public: "https://192.168.0.146"
+        },
+        port: "443 (HTTPS)",
+        container: "vCSA VM (101)",
+        auth: "administrator@vsphere.local",
+        tags: ["vcsa", "vsphere", "cluster", "vmware"]
+      },
+      {
+        id: "truenas-core",
+        name: "TrueNAS Storage Core",
+        category: "Infrastructure",
+        badge: "ZFS Storage",
+        badgeColor: "sky",
+        icon: "fa-solid fa-hard-drive",
+        iconBg: "from-sky-600 to-blue-500",
+        desc: "Enterprise ZFS network-attached storage, NFS/SMB shares, and snapshots.",
+        urls: {
+          lan: "http://192.168.0.47",
+          ddns: "http://192.168.0.47",
+          public: "http://192.168.0.47"
+        },
+        port: "80 / 443",
+        container: "TrueNAS VM (76)",
+        auth: "root / AdminPass",
+        tags: ["nas", "storage", "zfs", "nfs"]
+      },
+      {
+        id: "sky-router",
+        name: "Sky Broadband Router Gateway",
+        category: "Infrastructure",
+        badge: "Edge Gateway",
+        badgeColor: "slate",
+        icon: "fa-solid fa-wifi",
+        iconBg: "from-slate-600 to-zinc-500",
+        desc: "Primary WAN router, DHCP server, NAT port forwarding, and network firewall.",
+        urls: {
+          lan: "http://192.168.0.1",
+          ddns: "http://192.168.0.1",
+          public: "http://192.168.0.1"
+        },
+        port: "80 (HTTP)",
+        container: "Physical Edge Router",
+        auth: "admin / sky",
+        tags: ["router", "gateway", "dhcp", "wifi"]
+      }
+    ];
+
+    let activeCategory = 'All';
+    // Auto-detect mode: default to 'public' when accessed via npcsolutions.co.uk domain, else 'lan'
+    let currentMode = window.location.hostname.includes('npcsolutions.co.uk') ? 'public' : 'lan';
+    let searchQuery = '';
+
+    const categories = [
+      'All', 
+      'Enterprise ERP',
+      'Guacamole & Remote Desktop', 
+      'Public Tunnels', 
+      'AI & Compute', 
+      'Web Applications', 
+      'Monitoring', 
+      'Security & Access', 
+      'Infrastructure'
+    ];
+
+    function init() {
+      setRouteMode(currentMode, false);
+      renderCategoryTabs();
+      startClock();
+    }
+
+    function startClock() {
+      function update() {
+        const d = new Date();
+        const el = document.getElementById('live-clock');
+        if (el) {
+          el.innerText = d.toLocaleTimeString();
+        }
+      }
+      setInterval(update, 1000);
+      update();
+    }
+
+    function renderCategoryTabs() {
+      const container = document.getElementById('category-tabs');
+      container.innerHTML = categories.map(cat => {
+        const isSelected = cat === activeCategory;
+        const count = cat === 'All' ? services.length : services.filter(s => s.category === cat).length;
+        return `
+          <button 
+            onclick="setCategory('${cat}')" 
+            class="px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-2 ${
+              isSelected 
+                ? 'bg-slate-100 text-slate-900 font-bold shadow' 
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/80 bg-slate-900/60 border border-slate-800'
+            }"
+          >
+            <span>${cat}</span>
+            <span class="px-1.5 py-0.2 rounded-md text-[10px] ${
+              isSelected ? 'bg-slate-800 text-slate-100' : 'bg-slate-800/80 text-slate-400'
+            }">${count}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function setCategory(cat) {
+      activeCategory = cat;
+      renderCategoryTabs();
+      renderServices();
+    }
+
+    function setRouteMode(mode, showNotification = true) {
+      currentMode = mode;
+      document.querySelectorAll('.route-btn').forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm', 'active');
+        btn.classList.add('text-slate-400', 'hover:text-slate-200');
+      });
+      const activeBtn = document.getElementById(`mode-${mode}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-400', 'hover:text-slate-200');
+        activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm', 'active');
+      }
+
+      const labels = {
+        lan: 'Local LAN IPs (192.168.0.x)',
+        ddns: 'DDNS Domain (docker.npcsolutions.co.uk)',
+        public: 'Public Cloudflare Tunnels (*.npcsolutions.co.uk)'
+      };
+      const labelEl = document.getElementById('current-mode-label');
+      if (labelEl) {
+        labelEl.innerText = labels[mode] || mode;
+      }
+
+      // Dynamically update Guacamole banner action buttons
+      const uLink = document.getElementById('banner-ubuntu-link');
+      const winLink = document.getElementById('banner-unicaf-link');
+      if (uLink) {
+        uLink.href = mode === 'public' ? 'https://guacamole.npcsolutions.co.uk' : (mode === 'ddns' ? 'http://docker.npcsolutions.co.uk:8084' : 'http://192.168.0.218:8084');
+      }
+      if (winLink) {
+        winLink.href = mode === 'public' ? 'https://unicaf.npcsolutions.co.uk' : (mode === 'ddns' ? 'http://docker.npcsolutions.co.uk:8086' : 'http://192.168.0.218:8086');
+      }
+
+      renderServices();
+      if (showNotification) {
+        showToast(`Switched routing mode to ${labels[mode]}`);
+      }
+    }
+
+    function handleSearch(val) {
+      searchQuery = val.toLowerCase().trim();
+      const clearBtn = document.getElementById('clear-search');
+      if (searchQuery) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      renderServices();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('search-input');
+      input.value = '';
+      searchQuery = '';
+      document.getElementById('clear-search').classList.add('hidden');
+      renderServices();
+    }
+
+    function getServiceUrl(service) {
+      return service.urls[currentMode] || service.urls['lan'];
+    }
+
+    function renderServices() {
+      const grid = document.getElementById('services-grid');
+      const emptyState = document.getElementById('empty-state');
+      
+      const filtered = services.filter(s => {
+        const matchesCat = activeCategory === 'All' || s.category === activeCategory;
+        if (!matchesCat) return false;
+        if (!searchQuery) return true;
+
+        const hay = [
+          s.name,
+          s.category,
+          s.desc,
+          s.port,
+          s.container,
+          s.auth,
+          getServiceUrl(s),
+          ...(s.tags || [])
+        ].join(' ').toLowerCase();
+
+        return hay.includes(searchQuery);
+      });
+
+      document.getElementById('visible-count').innerText = filtered.length;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      grid.innerHTML = filtered.map(s => {
+        const url = getServiceUrl(s);
+        const isHttp = url.startsWith('http://') || url.startsWith('https://');
+
+        return `
+          <div class="glass-card rounded-2xl p-5 flex flex-col justify-between group relative overflow-hidden">
+            
+            <!-- Top Card Header -->
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-3.5">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-gradient-to-tr ${s.iconBg} flex items-center justify-center text-white text-lg shadow-md flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <i class="${s.icon}"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-white group-hover:text-indigo-300 transition-colors leading-tight">
+                      ${s.name}
+                    </h3>
+                    <div class="text-[11px] font-mono text-slate-400 mt-0.5 flex items-center gap-1.5">
+                      <span>Port: <strong class="text-slate-300">${s.port}</strong></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Badge -->
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-800/90 text-slate-300 border border-slate-700/60 whitespace-nowrap">
+                  ${s.badge}
+                </span>
+              </div>
+
+              <!-- Description -->
+              <p class="text-xs text-slate-300/80 mb-4 line-clamp-2 leading-relaxed font-sans">
+                ${s.desc}
+              </p>
+            </div>
+
+            <!-- Bottom Card Meta & Actions -->
+            <div class="pt-3.5 border-t border-slate-800/80 space-y-3">
+              
+              <!-- URL Box -->
+              <div class="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg bg-slate-950/70 border border-slate-800/80 text-[11px] font-mono">
+                <span class="text-slate-400 truncate select-all" title="${url}">${url}</span>
+                <button 
+                  onclick="copyText('${url}', '${s.name}')" 
+                  class="text-slate-400 hover:text-indigo-400 transition-colors p-1 flex-shrink-0"
+                  title="Copy URL"
+                >
+                  <i class="fa-regular fa-copy"></i>
+                </button>
+              </div>
+
+              <!-- Auth & Container Info -->
+              <div class="flex items-center justify-between text-[11px] text-slate-400">
+                <span class="truncate max-w-[180px] cursor-pointer hover:text-slate-200" onclick="copyText('${s.auth}', 'Login Credentials')" title="${s.auth}">
+                  <i class="fa-solid fa-key text-teal-400 mr-1 text-[10px]"></i>
+                  <span class="text-slate-300 font-mono text-[10px]">${s.auth}</span>
+                </span>
+                <span class="text-[10px] font-mono text-slate-500 truncate max-w-[120px]" title="${s.container}">
+                  ${s.container}
+                </span>
+              </div>
+
+              <!-- Action Button -->
+              ${isHttp ? `
+                <a 
+                  href="${url}" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-indigo-600 text-slate-200 hover:text-white text-xs font-bold transition-all flex items-center justify-center gap-2 group/btn shadow-sm"
+                >
+                  <span>Open Service</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
+                </a>
+              ` : `
+                <button 
+                  onclick="copyText('${url}', '${s.name}')" 
+                  class="w-full py-2.5 px-4 rounded-xl bg-slate-800/60 hover:bg-slate-700/80 text-slate-300 text-xs font-semibold transition-all flex items-center justify-center gap-2"
+                >
+                  <i class="fa-solid fa-terminal text-xs"></i>
+                  <span>Copy RDP String</span>
+                </button>
+              `}
+
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    function copyText(text, label) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        textArea.remove();
+      }
+      showToast(`Copied ${label || text} to clipboard!`);
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
