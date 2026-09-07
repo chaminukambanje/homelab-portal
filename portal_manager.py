@@ -177,7 +177,7 @@ services_config = [
     },
     {
         "id": "booklore",
-        "name": "BookLore Digital Library (Dedicated Server)",
+        "name": "Library (BookLore Digital Server)",
         "category": "Dashboards & Media",
         "icon": "fa-book-bookmark",
         "color": "rose",
@@ -187,7 +187,7 @@ services_config = [
         "user": "ubadmin_6835",
         "pass": "NyYPcgvAJnB8#cqN",
         "auth_type": "Form Authentication",
-        "public_url": "https://booklore.npcsolutions.co.uk"
+        "public_url": "https://library.npcsolutions.co.uk"
     },
     {
         "id": "agro-farm-project",

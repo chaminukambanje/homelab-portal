@@ -551,22 +551,22 @@
       },
       {
         id: "booklore-tunnel",
-        name: "BookLore (Cloudflare Tunnel)",
+        name: "Library (Cloudflare Tunnel)",
         category: "Public Tunnels",
         badge: "Cloudflare Tunnel",
         badgeColor: "amber",
         icon: "fa-solid fa-book-bookmark",
         iconBg: "from-amber-600 to-orange-500",
-        desc: "Public Cloudflare Tunnel routing to BookLore 3.0 Digital Library (http://192.168.0.99:6060).",
+        desc: "Public Cloudflare Tunnel routing to Library (BookLore 3.0) on http://192.168.0.99:6060.",
         urls: {
           lan: "http://192.168.0.99:6060",
           ddns: "http://192.168.0.99:6060",
-          public: "https://booklore.npcsolutions.co.uk"
+          public: "https://library.npcsolutions.co.uk"
         },
         port: "6060",
         container: "booklore-server (192.168.0.99:6060)",
         auth: "User Auth Required",
-        tags: ["books", "library", "cloudflare", "public"]
+        tags: ["library", "books", "cloudflare", "public"]
       },
       {
         id: "guacamole-tunnel",
@@ -961,22 +961,22 @@
       },
       {
         id: "booklore-local",
-        name: "BookLore Digital Library (Server)",
+        name: "Library Digital Server",
         category: "Infrastructure",
-        badge: "BookLore Server",
+        badge: "Library Server",
         badgeColor: "amber",
         icon: "fa-solid fa-book",
         iconBg: "from-amber-600 to-orange-500",
-        desc: "BookLore 3.0 instance running directly on dedicated booklore-server (192.168.0.99:6060).",
+        desc: "Library (BookLore 3.0) instance running directly on dedicated booklore-server (192.168.0.99:6060).",
         urls: {
           lan: "http://192.168.0.99:6060",
           ddns: "http://192.168.0.99:6060",
-          public: "https://booklore.npcsolutions.co.uk"
+          public: "https://library.npcsolutions.co.uk"
         },
         port: "6060",
         container: "booklore-server (192.168.0.99:6060)",
         auth: "User Auth",
-        tags: ["books", "library", "server", "reader"]
+        tags: ["library", "books", "server", "reader"]
       },
       {
         id: "vcenter-server",
