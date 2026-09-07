@@ -557,14 +557,14 @@
         badgeColor: "amber",
         icon: "fa-solid fa-book-bookmark",
         iconBg: "from-amber-600 to-orange-500",
-        desc: "Public Cloudflare Tunnel routing to BookLore Digital Library on Ubuntu VM.",
+        desc: "Public Cloudflare Tunnel routing to BookLore 3.0 Digital Library (http://192.168.0.99:6060).",
         urls: {
-          lan: "http://192.168.0.235:6060",
-          ddns: "http://192.168.0.235:6060",
+          lan: "http://192.168.0.99:6060",
+          ddns: "http://192.168.0.99:6060",
           public: "https://booklore.npcsolutions.co.uk"
         },
         port: "6060",
-        container: "booklore-tunnel (VM 108)",
+        container: "booklore-server (192.168.0.99:6060)",
         auth: "User Auth Required",
         tags: ["books", "library", "cloudflare", "public"]
       },
@@ -763,6 +763,25 @@
         tags: ["agriculture", "business", "planning", "agro"]
       },
       {
+        id: "chaminukambanje",
+        name: "Chaminuka Mbanje Hub",
+        category: "Web Applications",
+        badge: "Nginx / Portfolio",
+        badgeColor: "sky",
+        icon: "fa-solid fa-graduation-cap",
+        iconBg: "from-sky-600 to-blue-500",
+        desc: "Personal portfolio, professional Bio, CV download, and Dynamics 365 Business Central MB-800 study guide.",
+        urls: {
+          lan: "http://192.168.0.218:8089",
+          ddns: "http://docker.npcsolutions.co.uk:8089",
+          public: "https://chaminuka.npcsolutions.co.uk"
+        },
+        port: "8089",
+        container: "chaminukambanje (nginx:alpine)",
+        auth: "Open Access",
+        tags: ["portfolio", "resume", "d365", "study"]
+      },
+      {
         id: "postgres-db",
         name: "PostgreSQL Database Server",
         category: "Web Applications",
@@ -942,22 +961,22 @@
       },
       {
         id: "booklore-local",
-        name: "BookLore Digital Library (VM)",
+        name: "BookLore Digital Library (Server)",
         category: "Infrastructure",
-        badge: "Ubuntu VM 108",
+        badge: "BookLore Server",
         badgeColor: "amber",
         icon: "fa-solid fa-book",
         iconBg: "from-amber-600 to-orange-500",
-        desc: "BookLore instance running directly on Ubuntu Test VM (192.168.0.235).",
+        desc: "BookLore 3.0 instance running directly on dedicated booklore-server (192.168.0.99:6060).",
         urls: {
-          lan: "http://192.168.0.235:6060",
-          ddns: "http://192.168.0.235:6060",
+          lan: "http://192.168.0.99:6060",
+          ddns: "http://192.168.0.99:6060",
           public: "https://booklore.npcsolutions.co.uk"
         },
         port: "6060",
-        container: "booklore (192.168.0.235)",
+        container: "booklore-server (192.168.0.99:6060)",
         auth: "User Auth",
-        tags: ["books", "library", "vm", "reader"]
+        tags: ["books", "library", "server", "reader"]
       },
       {
         id: "vcenter-server",

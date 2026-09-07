@@ -177,16 +177,17 @@ services_config = [
     },
     {
         "id": "booklore",
-        "name": "BookLore Digital Library (Ubuntu VM)",
+        "name": "BookLore Digital Library (Dedicated Server)",
         "category": "Dashboards & Media",
         "icon": "fa-book-bookmark",
         "color": "rose",
-        "desc": "Digital library, PDF/ePub reader, and collection management system on Ubuntu VM",
-        "local_url": "http://192.168.0.235:6060",
-        "target_for_tunnel": "http://192.168.0.235:6060",
+        "desc": "Digital library, PDF/ePub reader, and collection management system on booklore-server (192.168.0.99)",
+        "local_url": "http://192.168.0.99:6060",
+        "target_for_tunnel": "http://192.168.0.99:6060",
         "user": "ubadmin_6835",
         "pass": "NyYPcgvAJnB8#cqN",
-        "auth_type": "Form Authentication"
+        "auth_type": "Form Authentication",
+        "public_url": "https://booklore.npcsolutions.co.uk"
     },
     {
         "id": "agro-farm-project",
@@ -360,14 +361,14 @@ nodes_data = [
         "badge": "Docker Engine"
     },
     {
-        "name": "Ubuntu Test / BookLore VM",
-        "hostname": "ubuntutest",
-        "ip": "192.168.0.235",
+        "name": "BookLore Dedicated Server",
+        "hostname": "booklore-server",
+        "ip": "192.168.0.99",
         "os": "Ubuntu Linux 24.04 (VM)",
-        "role": "BookLore Digital Library & MariaDB Backend",
+        "role": "BookLore 3.0 Digital Library & Reader Server",
         "status": "Online",
-        "details": "2 Containers (BookLore + MariaDB 11.4), Port 6060",
-        "badge": "Docker Engine"
+        "details": "BookLore 3.0 Web App, Port 6060",
+        "badge": "Digital Library"
     },
     {
         "name": "Ubuntu PC Workstation",
@@ -736,7 +737,7 @@ docker_registry_data = [
         "category": "Tunnels / Proxy"
     },
     {
-        "host": "Ubuntu Test VM (192.168.0.235)",
+        "host": "BookLore Server (192.168.0.99)",
         "repository": "ghcr.io/booklore-app/booklore",
         "tag": "latest",
         "image_id": "d3d3af34bc2c",
@@ -747,7 +748,7 @@ docker_registry_data = [
         "category": "Digital Library"
     },
     {
-        "host": "Ubuntu Test VM (192.168.0.235)",
+        "host": "BookLore Server (192.168.0.99)",
         "repository": "lscr.io/linuxserver/mariadb",
         "tag": "11.4.5",
         "image_id": "eef506eab5c5",

@@ -92,16 +92,16 @@
       "category": "Public Tunnels",
       "icon": "fa-book-bookmark",
       "color": "amber",
-      "desc": "Cloudflare Zero Trust tunnel for BookLore Digital Library on Ubuntu VM 108",
-      "local_url": "http://192.168.0.235:6060",
-      "ddns_url": "http://192.168.0.235:6060",
-      "target_for_tunnel": "http://192.168.0.235:6060",
+      "desc": "Cloudflare Zero Trust tunnel for BookLore Digital Library (v3.0) on booklore-server (192.168.0.99)",
+      "local_url": "http://192.168.0.99:6060",
+      "ddns_url": "http://192.168.0.99:6060",
+      "target_for_tunnel": "http://192.168.0.99:6060",
       "user": "ubadmin_6835",
       "pass": "NyYPcgvAJnB8#cqN",
       "auth_type": "Form Authentication",
       "public_url": "https://booklore.npcsolutions.co.uk",
       "ports": "6060",
-      "container": "booklore (VM 108)"
+      "container": "booklore-server (192.168.0.99:6060)"
     },
     {
       "id": "bc-proxy",
@@ -456,6 +456,20 @@
       "auth_type": "Live Telemetry Dashboard",
       "ports": "8500 -> 8500",
       "container": "network-traffic-dashboard"
+    },
+    {
+      "id": "chaminukambanje",
+      "name": "Chaminuka Mbanje (Personal Webapp & Learning Hub)",
+      "category": "Web Applications & Portals",
+      "icon": "fa-graduation-cap",
+      "color": "sky",
+      "desc": "Chaminuka Mbanje personal portfolio, professional Bio, CV download, and Dynamics 365 Business Central MB-800 study guide.",
+      "local_url": "http://192.168.0.218:8089",
+      "ddns_url": "http://docker.npcsolutions.co.uk:8089",
+      "target_for_tunnel": "http://localhost:8089",
+      "public_url": "https://chaminuka.npcsolutions.co.uk",
+      "ports": "8089 -> 80",
+      "container": "chaminukambanje (nginx:alpine)"
     }
   ],
   "nodes_summary_item1": [
@@ -470,14 +484,14 @@
       "badge": "Docker Engine"
     },
     {
-      "name": "Ubuntu Test / BookLore VM",
-      "hostname": "ubuntutest",
-      "ip": "192.168.0.235",
+      "name": "BookLore Dedicated Server",
+      "hostname": "booklore-server",
+      "ip": "192.168.0.99",
       "os": "Ubuntu Linux 24.04 (VM)",
-      "role": "BookLore Digital Library & MariaDB Backend",
+      "role": "BookLore 3.0 Digital Library & Reader Server",
       "status": "Online",
-      "details": "2 Containers (BookLore + MariaDB 11.4), Port 6060",
-      "badge": "Docker Engine"
+      "details": "BookLore 3.0 Web Application, Port 6060",
+      "badge": "Digital Library"
     },
     {
       "name": "Ubuntu PC Workstation",
@@ -844,7 +858,7 @@
       "category": "Tunnels / Proxy"
     },
     {
-      "host": "Ubuntu Test VM (192.168.0.235)",
+      "host": "BookLore Server (192.168.0.99)",
       "repository": "ghcr.io/booklore-app/booklore",
       "tag": "latest",
       "image_id": "d3d3af34bc2c",
@@ -855,7 +869,7 @@
       "category": "Digital Library"
     },
     {
-      "host": "Ubuntu Test VM (192.168.0.235)",
+      "host": "BookLore Server (192.168.0.99)",
       "repository": "lscr.io/linuxserver/mariadb",
       "tag": "11.4.5",
       "image_id": "eef506eab5c5",
