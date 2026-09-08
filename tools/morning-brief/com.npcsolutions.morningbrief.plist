@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.npcsolutions.morningbrief</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/mbanjec/.local/bin/morning_brief.py</string>
+        <string>--open</string>
+    </array>
+
+    <!-- Trigger every morning at 07:30 AM -->
+    <!-- If your MacBook is asleep, macOS will run it immediately when woken up -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>7</integer>
+        <key>Minute</key>
+        <integer>30</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/mbanjec/Documents/MorningBriefs/morning_brief.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/mbanjec/Documents/MorningBriefs/morning_brief.log</string>
+</dict>
+</plist>

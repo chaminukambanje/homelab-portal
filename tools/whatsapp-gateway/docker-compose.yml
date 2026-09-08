@@ -1,0 +1,11 @@
+services:
+  whatsapp-gateway:
+    image: devlikeapro/waha:latest
+    container_name: whatsapp-gateway
+    restart: unless-stopped
+    ports:
+      - "8095:3000"
+    env_file:
+      - .env
+    volumes:
+      - /home/mbanjec/whatsapp-gateway/.sessions:/app/.sessions

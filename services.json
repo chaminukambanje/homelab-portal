@@ -325,6 +325,23 @@
       "container": "news-dashboard"
     },
     {
+      "id": "whatsapp-gateway",
+      "name": "WhatsApp Gateway (WAHA)",
+      "category": "Web Applications",
+      "icon": "fa-brands fa-whatsapp",
+      "color": "emerald",
+      "desc": "Self-hosted WhatsApp HTTP API gateway for morning briefing and automated homelab notifications",
+      "local_url": "http://192.168.0.218:8095/dashboard",
+      "ddns_url": "http://docker.npcsolutions.co.uk:8095/dashboard",
+      "target_for_tunnel": "http://localhost:8095",
+      "user": "admin",
+      "pass": "NpcSolutions2026!",
+      "auth_type": "Basic Auth",
+      "public_url": "http://docker.npcsolutions.co.uk:8095/dashboard",
+      "ports": "8095",
+      "container": "whatsapp-gateway"
+    },
+    {
       "id": "agro-farm-project",
       "name": "50m \u00d7 50m Agro-Enterprise Project",
       "category": "Web Applications",

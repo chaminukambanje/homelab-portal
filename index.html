@@ -725,6 +725,25 @@
         tags: ["news", "trends", "dashboard", "aggregator"]
       },
       {
+        id: "whatsapp-gateway",
+        name: "WhatsApp Gateway (WAHA)",
+        category: "Web Applications",
+        badge: "Docker / WAHA",
+        badgeColor: "emerald",
+        icon: "fa-brands fa-whatsapp",
+        iconBg: "from-emerald-600 to-teal-500",
+        desc: "Self-hosted WhatsApp HTTP API gateway for morning briefing and automated homelab notifications.",
+        urls: {
+          lan: "http://192.168.0.218:8095/dashboard",
+          ddns: "http://docker.npcsolutions.co.uk:8095/dashboard",
+          public: "http://docker.npcsolutions.co.uk:8095/dashboard"
+        },
+        port: "8095",
+        container: "whatsapp-gateway",
+        auth: "admin / NpcSolutions2026!",
+        tags: ["whatsapp", "notifications", "alerts", "messaging", "waha"]
+      },
+      {
         id: "fastcash-app",
         name: "Fast Cash UK Web App",
         category: "Web Applications",
