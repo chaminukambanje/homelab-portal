@@ -22,7 +22,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8084",
         "target_for_tunnel": "http://localhost:8084",
         "user": "mbanjec / admin",
-        "pass": "admin / [REDACTED]",
         "auth_type": "HTML5 Web RDP Gateway",
         "public_url": "https://purple-camels-find.loca.lt"
     },
@@ -36,7 +35,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8086",
         "target_for_tunnel": "http://localhost:8086",
         "user": "mbanjec / Administrator",
-        "pass": "[REDACTED]",
         "auth_type": "HTML5 Web RDP Gateway",
         "public_url": "https://comparison-pearl-typical-limitation.trycloudflare.com"
     },
@@ -50,7 +48,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8880",
         "target_for_tunnel": "http://localhost:8880",
         "user": "mbanjec",
-        "pass": "[REDACTED]",
         "auth_type": "Direct Web Access",
         "public_url": "https://ensures-amount-new-shall.trycloudflare.com"
     },
@@ -64,7 +61,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8888",
         "target_for_tunnel": "http://localhost:8888",
         "user": "jovyan / mbanjec",
-        "pass": "No Token Required",
         "auth_type": "Tokenless Workspace",
         "public_url": "https://fotos-consisting-enormous-hong.trycloudflare.com"
     },
@@ -78,7 +74,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8882",
         "target_for_tunnel": "http://localhost:8882",
         "user": "Anonymous",
-        "pass": "None (Full CRUD Access)",
         "auth_type": "Anonymous Access",
         "public_url": "https://poll-scanning-lots-radiation.trycloudflare.com"
     },
@@ -92,7 +87,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8881/docs",
         "target_for_tunnel": "http://localhost:8881",
         "user": "API Client",
-        "pass": "None",
         "auth_type": "Swagger / OpenAPI Docs"
     },
     {
@@ -105,7 +99,6 @@ services_config = [
         "local_url": "http://192.168.0.218:3002",
         "target_for_tunnel": "http://localhost:3002",
         "user": "admin",
-        "pass": "admin",
         "auth_type": "Basic / Session Auth",
         "public_url": "https://distributor-tramadol-modules-dreams.trycloudflare.com"
     },
@@ -119,7 +112,6 @@ services_config = [
         "local_url": "http://192.168.0.218:9090",
         "target_for_tunnel": "http://localhost:9090",
         "user": "None",
-        "pass": "None",
         "auth_type": "Direct Web UI"
     },
     {
@@ -132,7 +124,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8085",
         "target_for_tunnel": "http://localhost:8085",
         "user": "None",
-        "pass": "None",
         "auth_type": "Direct Web UI"
     },
     {
@@ -145,7 +136,6 @@ services_config = [
         "local_url": "https://192.168.0.218:8443",
         "target_for_tunnel": "https://localhost:8443",
         "user": "admin",
-        "pass": "admin",
         "auth_type": "HTTPS Form Login"
     },
     {
@@ -158,7 +148,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8090",
         "target_for_tunnel": "http://localhost:8090",
         "user": "Public",
-        "pass": "None",
         "auth_type": "No Authentication",
         "public_url": "https://bind-advancement-requested-needle.trycloudflare.com"
     },
@@ -172,7 +161,6 @@ services_config = [
         "local_url": "http://192.168.0.218:3000",
         "target_for_tunnel": "http://localhost:3000",
         "user": "None",
-        "pass": "None",
         "auth_type": "Web Kasm/VNC"
     },
     {
@@ -185,7 +173,6 @@ services_config = [
         "local_url": "http://192.168.0.99:6060",
         "target_for_tunnel": "http://192.168.0.99:6060",
         "user": "ubadmin_6835",
-        "pass": "[REDACTED]",
         "auth_type": "Form Authentication",
         "public_url": "https://library.npcsolutions.co.uk"
     },
@@ -199,7 +186,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8087",
         "target_for_tunnel": "http://localhost:8087",
         "user": "Public",
-        "pass": "None",
         "auth_type": "No Authentication",
         "public_url": "https://arranged-infinite-sufficiently-lucky.trycloudflare.com"
     },
@@ -213,7 +199,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8098",
         "target_for_tunnel": "http://localhost:8098",
         "user": "Public",
-        "pass": "None",
         "auth_type": "Web Portal Access"
     },
     {
@@ -226,7 +211,6 @@ services_config = [
         "local_url": "http://192.168.0.218:51821",
         "target_for_tunnel": "http://localhost:51821",
         "user": "admin",
-        "pass": "[REDACTED]",
         "auth_type": "Web Admin Password"
     },
     {
@@ -239,7 +223,6 @@ services_config = [
         "local_url": "https://192.168.0.200",
         "target_for_tunnel": "https://192.168.0.200",
         "user": "root",
-        "pass": "[REDACTED]",
         "auth_type": "Hypervisor Root Login"
     },
     {
@@ -252,7 +235,6 @@ services_config = [
         "local_url": "https://192.168.0.146",
         "target_for_tunnel": "https://192.168.0.146",
         "user": "administrator@vsphere.local",
-        "pass": "[REDACTED]",
         "auth_type": "SSO Domain Login"
     },
     {
@@ -265,7 +247,6 @@ services_config = [
         "local_url": "http://192.168.0.218:8096",
         "target_for_tunnel": "http://localhost:8096",
         "user": "npcsolutions\\administrator",
-        "pass": "[REDACTED]",
         "auth_type": "Active Directory NTLM"
     },
     {
@@ -278,7 +259,6 @@ services_config = [
         "local_url": "http://192.168.0.47",
         "target_for_tunnel": "http://192.168.0.47",
         "user": "admin / mbanjec",
-        "pass": "[REDACTED]",
         "auth_type": "Web GUI Login"
     },
     {
@@ -291,7 +271,6 @@ services_config = [
         "local_url": "https://192.168.0.131:9090",
         "target_for_tunnel": "https://192.168.0.131:9090",
         "user": "root / mbanjec",
-        "pass": "[REDACTED]",
         "auth_type": "Linux PAM Auth"
     },
     {
@@ -304,7 +283,6 @@ services_config = [
         "local_url": "https://192.168.0.131:10000",
         "target_for_tunnel": "https://192.168.0.131:10000",
         "user": "root / mbanjec",
-        "pass": "[REDACTED]",
         "auth_type": "Linux PAM Auth"
     },
     {
@@ -317,7 +295,6 @@ services_config = [
         "local_url": "https://192.168.0.170:10000",
         "target_for_tunnel": "https://192.168.0.170:10000",
         "user": "root / mbanjec",
-        "pass": "[REDACTED]",
         "auth_type": "Linux PAM Auth"
     },
     {
@@ -330,7 +307,6 @@ services_config = [
         "local_url": "https://192.168.0.124:10000",
         "target_for_tunnel": "https://192.168.0.124:10000",
         "user": "root / mbanjec",
-        "pass": "[REDACTED]",
         "auth_type": "Linux PAM Auth"
     },
     {
@@ -343,7 +319,6 @@ services_config = [
         "local_url": "http://192.168.0.1",
         "target_for_tunnel": "http://192.168.0.1",
         "user": "admin",
-        "pass": "sky",
         "auth_type": "HTTP Basic Auth"
     }
 ]

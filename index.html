@@ -232,8 +232,7 @@
             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-500/20 text-teal-300 border border-teal-500/30">Browser HTML5 RDP</span>
           </div>
           <p class="text-xs text-slate-300 mt-0.5">
-            Clientless browser desktop access to your physical & virtual machines. 
-            Default Login: <code class="font-mono text-teal-300 font-bold bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800 cursor-pointer" onclick="copyText('mbanjec / [REDACTED]', 'Credentials')">mbanjec / [REDACTED]</code> or <code class="font-mono text-slate-300 bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-800 cursor-pointer" onclick="copyText('admin / admin', 'Admin Credentials')">admin / admin</code>
+            Clientless browser desktop access to physical & virtual workstations via Cloudflare Zero Trust.
           </p>
         </div>
       </div>
@@ -309,6 +308,15 @@
 
         <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
           <div class="text-slate-400 font-sans font-semibold mb-1 flex items-center justify-between">
+            <span>Munashe-PC Workstation</span>
+            <span class="text-sky-400 font-mono text-[10px]">RDP: 3389</span>
+          </div>
+          <div class="text-white font-bold text-sm">192.168.0.222</div>
+          <div class="text-slate-400 text-[11px] mt-1 font-sans">Windows 11 Enterprise Workstation</div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+          <div class="text-slate-400 font-sans font-semibold mb-1 flex items-center justify-between">
             <span>UNICAF Windows Server</span>
             <span class="text-indigo-400 font-mono text-[10px]">RDP: 3389</span>
           </div>
@@ -369,8 +377,26 @@
         },
         port: "8084 -> 8080",
         container: "ubuntu-rdp-web (oznu/guacamole)",
-        auth: "mbanjec / [REDACTED] (or admin/admin)",
+        auth: "Domain / AD SSO",
         tags: ["guacamole", "rdp", "remote desktop", "ubuntu", "workstation", "104", "8084", "web rdp", "html5"]
+      },
+      {
+        id: "guacamole-munashe-pc",
+        name: "Munashe-PC Windows 11 (Guacamole Web RDP)",
+        category: "Guacamole & Remote Desktop",
+        badge: "Guacamole Gateway",
+        badgeColor: "sky",
+        icon: "fa-brands fa-windows",
+        iconBg: "from-sky-600 via-cyan-600 to-blue-500",
+        desc: "Interactive HTML5 browser remote desktop session for Munashe-PC (192.168.0.222).",
+        urls: {
+          lan: "http://192.168.0.218:8086",
+          ddns: "http://docker.npcsolutions.co.uk:8086",
+          public: "http://192.168.0.218:8086"
+        },
+        ports: "8086 -> 8080 (RDP 3389)",
+        auth: "Domain / AD SSO",
+        tags: ["guacamole", "rdp", "remote desktop", "windows", "munashe-pc", "workstation", "222", "8086", "web rdp", "html5"]
       },
       {
         id: "guacamole-unicaf",
@@ -388,7 +414,7 @@
         },
         port: "8086 -> 8080",
         container: "unicaf-rdp-web (oznu/guacamole)",
-        auth: "mbanjec / [REDACTED] (or admin/admin)",
+        auth: "Domain / AD SSO",
         tags: ["guacamole", "rdp", "remote desktop", "windows", "server", "109", "8086", "web rdp", "html5", "unicaf"]
       },
       {
@@ -407,7 +433,7 @@
         },
         port: "3389",
         container: "Physical Host 192.168.0.104",
-        auth: "mbanjec / [REDACTED]",
+        auth: "Domain Credentials",
         isLink: false,
         tags: ["rdp", "ubuntu", "remmina", "native", "3389", "104"]
       },
@@ -427,7 +453,7 @@
         },
         port: "3389",
         container: "VM Host 192.168.0.109",
-        auth: "Administrator / [REDACTED]",
+        auth: "Active Directory",
         isLink: false,
         tags: ["rdp", "windows", "native", "mstsc", "3389", "109"]
       },
@@ -565,7 +591,7 @@
         },
         port: "6060",
         container: "booklore-server (192.168.0.99:6060)",
-        auth: "User Auth Required",
+        auth: "User Account",
         tags: ["library", "books", "cloudflare", "public"]
       },
       {
@@ -584,7 +610,7 @@
         },
         port: "8084",
         container: "cloudflared / ubuntu-rdp-web",
-        auth: "mbanjec / [REDACTED]",
+        auth: "Domain Credentials",
         tags: ["guacamole", "rdp", "cloudflare", "public"]
       },
       {
@@ -603,7 +629,7 @@
         },
         port: "8086",
         container: "cloudflared / unicaf-rdp-web",
-        auth: "mbanjec / [REDACTED]",
+        auth: "Domain Credentials",
         tags: ["guacamole", "rdp", "windows", "cloudflare", "public"]
       },
       {
@@ -643,7 +669,7 @@
         },
         port: "8880",
         container: "jasmin-portal",
-        auth: "mbanjec / [REDACTED]",
+        auth: "Domain Credentials",
         tags: ["ai", "hpc", "cluster", "jasmin", "slurm"]
       },
       {
@@ -706,6 +732,25 @@
 
       // 5. Web Applications
       {
+        id: "property-dashboard",
+        name: "Property & Garage Radar",
+        category: "Web Applications",
+        badge: "Flask / Docker",
+        badgeColor: "emerald",
+        icon: "fa-solid fa-house-chimney",
+        iconBg: "from-emerald-600 to-teal-500",
+        desc: "2-bed rental radar with garden & lockable garage across Didcot, Wantage, Faringdon, Highworth & Swindon (3km radius). 3h auto-sync.",
+        urls: {
+          lan: "http://192.168.0.218:8091",
+          ddns: "http://docker.npcsolutions.co.uk:8091",
+          public: "https://property.npcsolutions.co.uk"
+        },
+        port: "8091",
+        container: "property-dashboard",
+        auth: "Open Access",
+        tags: ["property", "rentals", "dashboard", "garage", "oxfordshire"]
+      },
+      {
         id: "news-dashboard",
         name: "News & Trends Dashboard",
         category: "Web Applications",
@@ -740,7 +785,7 @@
         },
         port: "8095",
         container: "whatsapp-gateway",
-        auth: "admin / [REDACTED]",
+        auth: "Admin Auth",
         tags: ["whatsapp", "notifications", "alerts", "messaging", "waha"]
       },
       {
@@ -816,7 +861,7 @@
         },
         port: "5432",
         container: "test-postgres",
-        auth: "postgres / password",
+        auth: "Database Auth",
         isLink: false,
         tags: ["db", "sql", "postgres", "database"]
       },
@@ -838,7 +883,7 @@
         },
         port: "3002 -> 3000",
         container: "grafana",
-        auth: "admin / admin",
+        auth: "Admin Auth",
         tags: ["metrics", "charts", "alerts", "grafana", "observability"]
       },
       {
@@ -935,7 +980,7 @@
         },
         port: "8443 -> 5601",
         container: "single-node-wazuh.dashboard",
-        auth: "admin / SecretPassword",
+        auth: "SIEM Auth",
         tags: ["security", "siem", "wazuh", "soc", "indexer"]
       },
       {
@@ -954,7 +999,7 @@
         },
         port: "51821 (UDP 51820)",
         container: "wg-easy",
-        auth: "Admin Password Protected",
+        auth: "Admin Auth",
         tags: ["vpn", "wireguard", "remote", "tunnel", "security"]
       },
 
@@ -975,7 +1020,7 @@
         },
         port: "443 (HTTPS)",
         container: "Baremetal ESXi Host",
-        auth: "root / [REDACTED]",
+        auth: "Host Admin Auth",
         tags: ["esxi", "vmware", "hypervisor", "hardware", "infrastructure"]
       },
       {
@@ -994,7 +1039,7 @@
         },
         port: "6060",
         container: "booklore-server (192.168.0.99:6060)",
-        auth: "User Auth",
+        auth: "User Account",
         tags: ["library", "books", "server", "reader"]
       },
       {
@@ -1013,7 +1058,7 @@
         },
         port: "443 (HTTPS)",
         container: "vCSA VM (101)",
-        auth: "administrator@vsphere.local",
+        auth: "vSphere SSO",
         tags: ["vcsa", "vsphere", "cluster", "vmware"]
       },
       {
@@ -1032,7 +1077,7 @@
         },
         port: "80 / 443",
         container: "TrueNAS VM (76)",
-        auth: "root / AdminPass",
+        auth: "Host Admin Auth",
         tags: ["nas", "storage", "zfs", "nfs"]
       },
       {
@@ -1051,7 +1096,7 @@
         },
         port: "80 (HTTP)",
         container: "Physical Edge Router",
-        auth: "admin / sky",
+        auth: "Router Admin",
         tags: ["router", "gateway", "dhcp", "wifi"]
       }
     ];
@@ -1267,9 +1312,9 @@
 
               <!-- Auth & Container Info -->
               <div class="flex items-center justify-between text-[11px] text-slate-400">
-                <span class="truncate max-w-[180px] cursor-pointer hover:text-slate-200" onclick="copyText('${s.auth}', 'Login Credentials')" title="${s.auth}">
-                  <i class="fa-solid fa-key text-teal-400 mr-1 text-[10px]"></i>
-                  <span class="text-slate-300 font-mono text-[10px]">${s.auth}</span>
+                <span class="truncate max-w-[180px] text-slate-300 flex items-center gap-1.5" title="${s.auth}">
+                  <i class="fa-solid fa-shield-halved text-teal-400 text-[10px]"></i>
+                  <span class="text-slate-300 font-sans text-[11px] font-medium">${s.auth}</span>
                 </span>
                 <span class="text-[10px] font-mono text-slate-500 truncate max-w-[120px]" title="${s.container}">
                   ${s.container}
