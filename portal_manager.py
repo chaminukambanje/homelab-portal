@@ -22,7 +22,7 @@ services_config = [
         "local_url": "http://192.168.0.218:8084",
         "target_for_tunnel": "http://localhost:8084",
         "user": "mbanjec / admin",
-        "pass": "ig2tq:up8# / admin",
+        "pass": "admin / [REDACTED]",
         "auth_type": "HTML5 Web RDP Gateway",
         "public_url": "https://purple-camels-find.loca.lt"
     },
@@ -36,7 +36,7 @@ services_config = [
         "local_url": "http://192.168.0.218:8086",
         "target_for_tunnel": "http://localhost:8086",
         "user": "mbanjec / Administrator",
-        "pass": "ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "HTML5 Web RDP Gateway",
         "public_url": "https://comparison-pearl-typical-limitation.trycloudflare.com"
     },
@@ -50,7 +50,7 @@ services_config = [
         "local_url": "http://192.168.0.218:8880",
         "target_for_tunnel": "http://localhost:8880",
         "user": "mbanjec",
-        "pass": "ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "Direct Web Access",
         "public_url": "https://ensures-amount-new-shall.trycloudflare.com"
     },
@@ -185,7 +185,7 @@ services_config = [
         "local_url": "http://192.168.0.99:6060",
         "target_for_tunnel": "http://192.168.0.99:6060",
         "user": "ubadmin_6835",
-        "pass": "NyYPcgvAJnB8#cqN",
+        "pass": "[REDACTED]",
         "auth_type": "Form Authentication",
         "public_url": "https://library.npcsolutions.co.uk"
     },
@@ -226,7 +226,7 @@ services_config = [
         "local_url": "http://192.168.0.218:51821",
         "target_for_tunnel": "http://localhost:51821",
         "user": "admin",
-        "pass": "ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "Web Admin Password"
     },
     {
@@ -239,7 +239,7 @@ services_config = [
         "local_url": "https://192.168.0.200",
         "target_for_tunnel": "https://192.168.0.200",
         "user": "root",
-        "pass": "Munashe1234# / ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "Hypervisor Root Login"
     },
     {
@@ -252,7 +252,7 @@ services_config = [
         "local_url": "https://192.168.0.146",
         "target_for_tunnel": "https://192.168.0.146",
         "user": "administrator@vsphere.local",
-        "pass": "Munashe1234@ / ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "SSO Domain Login"
     },
     {
@@ -265,7 +265,7 @@ services_config = [
         "local_url": "http://192.168.0.218:8096",
         "target_for_tunnel": "http://localhost:8096",
         "user": "npcsolutions\\administrator",
-        "pass": "ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "Active Directory NTLM"
     },
     {
@@ -278,7 +278,7 @@ services_config = [
         "local_url": "http://192.168.0.47",
         "target_for_tunnel": "http://192.168.0.47",
         "user": "admin / mbanjec",
-        "pass": "Munashe1234@ / ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "Web GUI Login"
     },
     {
@@ -291,7 +291,7 @@ services_config = [
         "local_url": "https://192.168.0.131:9090",
         "target_for_tunnel": "https://192.168.0.131:9090",
         "user": "root / mbanjec",
-        "pass": "ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "Linux PAM Auth"
     },
     {
@@ -304,7 +304,7 @@ services_config = [
         "local_url": "https://192.168.0.131:10000",
         "target_for_tunnel": "https://192.168.0.131:10000",
         "user": "root / mbanjec",
-        "pass": "ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "Linux PAM Auth"
     },
     {
@@ -317,7 +317,7 @@ services_config = [
         "local_url": "https://192.168.0.170:10000",
         "target_for_tunnel": "https://192.168.0.170:10000",
         "user": "root / mbanjec",
-        "pass": "ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "Linux PAM Auth"
     },
     {
@@ -330,7 +330,7 @@ services_config = [
         "local_url": "https://192.168.0.124:10000",
         "target_for_tunnel": "https://192.168.0.124:10000",
         "user": "root / mbanjec",
-        "pass": "ig2tq:up8#",
+        "pass": "[REDACTED]",
         "auth_type": "Linux PAM Auth"
     },
     {

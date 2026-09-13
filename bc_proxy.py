@@ -10,8 +10,8 @@ from requests_ntlm import HttpNtlmAuth
 BC_HOST = "192.168.0.39"
 BC_PORT = 8080
 BC_BASE = f"http://{BC_HOST}:{BC_PORT}"
-BC_USER = r"npcsolutions\administrator"
-BC_PASS = "ig2tq:up8#"
+BC_USER = os.environ.get("BC_USER", r"npcsolutions\administrator")
+BC_PASS = os.environ.get("BC_PASS", "")
 
 app = FastAPI(title="Business Central Gateway")
 
