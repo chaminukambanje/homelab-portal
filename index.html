@@ -1090,11 +1090,11 @@
         iconBg: "from-sky-600 to-blue-500",
         desc: "Enterprise ZFS network-attached storage, NFS/SMB shares, and snapshots.",
         urls: {
-          lan: "http://192.168.0.47",
-          ddns: "http://192.168.0.47",
-          public: "http://192.168.0.47"
+          lan: "https://192.168.0.47:9443",
+          ddns: "https://192.168.0.47:9443",
+          public: "https://192.168.0.47:9443"
         },
-        port: "80 / 443",
+        port: "9443 (HTTPS) / 9080 (HTTP)",
         container: "TrueNAS VM (76)",
         auth: "Host Admin Auth",
         tags: ["nas", "storage", "zfs", "nfs"]
