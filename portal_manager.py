@@ -190,7 +190,22 @@ services_config = [
         "public_url": "https://arranged-infinite-sufficiently-lucky.trycloudflare.com"
     },
     {
-        "id": "fast-cash-uk", "business-central",
+        "id": "uk-it-disposal",
+        "name": "UK & Scotland IT Asset Disposal Radar",
+        "category": "Web Applications",
+        "icon": "fa-recycle",
+        "color": "emerald",
+        "desc": "Live redundant IT equipment disposal tracker for UK & Scottish NHS hospitals, universities, councils & enterprise. Item catalogues, pricing & WEEE collection conditions.",
+        "local_url": "http://192.168.0.218:8099",
+        "target_for_tunnel": "http://localhost:8099",
+        "user": "Open Access",
+        "auth_type": "Live Web App (Port 8099)",
+        "public_url": "https://improved-listen-medications-world.trycloudflare.com",
+        "ports": "8099",
+        "container": "uk-it-disposal-radar"
+    },
+    {
+        "id": "fast-cash-uk",
         "name": "Fast Cash UK Web Application",
         "category": "Dashboards & Media",
         "icon": "fa-sterling-sign",

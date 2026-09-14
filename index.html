@@ -732,6 +732,25 @@
 
       // 5. Web Applications
       {
+        id: "uk-it-disposal",
+        name: "UK & Scotland IT Asset Disposal Radar",
+        category: "Web Applications",
+        badge: "Flask / WEEE Radar",
+        badgeColor: "emerald",
+        icon: "fa-solid fa-recycle",
+        iconBg: "from-emerald-600 via-teal-600 to-cyan-500",
+        desc: "Live redundant IT equipment disposal tracker for UK & Scottish NHS hospitals, universities, councils & enterprise. Item catalogues, pricing & WEEE collection conditions.",
+        urls: {
+          lan: "http://192.168.0.218:8099",
+          ddns: "http://docker.npcsolutions.co.uk:8099",
+          public: "https://improved-listen-medications-world.trycloudflare.com"
+        },
+        port: "8099",
+        container: "uk-it-disposal-radar",
+        auth: "Open Access",
+        tags: ["weee", "disposal", "scotland", "uk", "servers", "pcs", "networking", "nhs", "hardware", "catalogue", "recycling"]
+      },
+      {
         id: "property-dashboard",
         name: "Property & Garage Radar",
         category: "Web Applications",
